@@ -26,6 +26,8 @@ function Gestor() {
   const [activeChatModal, setActiveChatModal] = useState(null);
   const [notes, setNotes] = useState({});
   const [currentNote, setCurrentNote] = useState("");
+  const [filterTeam, setFilterTeam] = useState("all");
+  const [filterProgress, setFilterProgress] = useState("all");
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -163,6 +165,56 @@ function Gestor() {
     collaboratorsData.find((emp) => emp.name === selectedEmployee) ||
     collaboratorsData[0];
 
+  // Filtrar colaboradores baseado nos filtros selecionados
+  const filteredCollaborators = collaboratorsData.filter((collaborator) => {
+    // Filtro por equipe (simulando diferentes equipes)
+    if (filterTeam !== "all") {
+      const teams = {
+        "ti": ["João Silva", "Carlos Silva", "Pedro Costa"],
+        "marketing": ["Ana Paula", "Fernanda Lima"],
+        "dados": ["Maria Oliveira", "Juliana Alves"]
+      };
+      if (!teams[filterTeam]?.includes(collaborator.name)) {
+        return false;
+      }
+    }
+
+    // Filtro por progresso
+    if (filterProgress !== "all") {
+      if (filterProgress === "low" && collaborator.progress >= 50) return false;
+      if (filterProgress === "medium" && (collaborator.progress < 50 || collaborator.progress >= 80)) return false;
+      if (filterProgress === "high" && collaborator.progress < 80) return false;
+    }
+
+    return true;
+  });
+
+  // Alertas baseados nos colaboradores filtrados
+  const getAlertsForCollaborators = () => {
+    const alerts = [];
+    filteredCollaborators.forEach(collaborator => {
+      if (collaborator.timeInCurrentStep > 4) {
+        alerts.push({
+          type: "Alerta",
+          content: `${collaborator.name} está há ${collaborator.timeInCurrentStep} dias na mesma etapa`,
+          status: "warning",
+          collaborator: collaborator.name
+        });
+      }
+      if (collaborator.progress < 30 && collaborator.timeInCurrentStep > 2) {
+        alerts.push({
+          type: "Pendência",
+          content: `${collaborator.name} precisa de atenção - progresso baixo`,
+          status: "pending",
+          collaborator: collaborator.name
+        });
+      }
+    });
+    return alerts;
+  };
+
+  const dynamicAlerts = getAlertsForCollaborators();
+
   const handleCreateTask = (newTask) => {
     setTasks((prev) => [...prev, newTask]);
   };
@@ -287,15 +339,15 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="vivo-header border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-semibold text-gray-900">
+            <h1 className="text-xl font-semibold text-white">
               Painel do Gestor
             </h1>
             <div className="flex items-center space-x-2">
-              <User className="h-5 w-5 text-green-600" />
-              <span className="text-sm text-green-600 font-medium">
+              <User className="h-5 w-5 text-white" />
+              <span className="text-sm text-white font-medium">
                 Nome do Gestor
               </span>
             </div>
@@ -335,7 +387,7 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
             <CardContent>
               <div className="grid grid-cols-3 gap-6 text-center">
                 <div>
-                  <div className="text-3xl font-bold text-purple-700">
+                  <div className="text-3xl font-bold vivo-text-primary">
                     {teamData.totalEmployees}
                   </div>
                   <div className="text-sm text-gray-600">
@@ -343,7 +395,7 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
                   </div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-blue-600">
+                  <div className="text-3xl font-bold vivo-text-secondary">
                     {teamData.inOnboarding}
                   </div>
                   <div className="text-sm text-gray-600">Em Onboarding</div>
@@ -364,6 +416,39 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
           <Card className="mb-6">
             <CardHeader>
               <CardTitle>Status Detalhado dos Colaboradores</CardTitle>
+              {/* Filtros */}
+              <div className="flex space-x-4 mt-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Filtrar por Equipe:
+                  </label>
+                  <select
+                    className="p-2 border border-gray-300 rounded-md"
+                    value={filterTeam}
+                    onChange={(e) => setFilterTeam(e.target.value)}
+                  >
+                    <option value="all">Todas as Equipes</option>
+                    <option value="ti">TI</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="dados">Dados</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Filtrar por Progresso:
+                  </label>
+                  <select
+                    className="p-2 border border-gray-300 rounded-md"
+                    value={filterProgress}
+                    onChange={(e) => setFilterProgress(e.target.value)}
+                  >
+                    <option value="all">Todos os Progressos</option>
+                    <option value="low">Baixo (0-49%)</option>
+                    <option value="medium">Médio (50-79%)</option>
+                    <option value="high">Alto (80-100%)</option>
+                  </select>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
@@ -380,7 +465,7 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
                   </tr>
                 </thead>
                 <tbody>
-                  {collaboratorsData.map((collaborator, index) => (
+                  {filteredCollaborators.map((collaborator, index) => (
                     <tr key={index} className="border-t">
                       <td className="px-4 py-2 font-medium">
                         {collaborator.name}
@@ -492,11 +577,11 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
 
           {/* Mensagens */}
           <Card className="mb-6">
-            <CardHeader className="bg-purple-700 text-white">
+            <CardHeader className="vivo-card-header">
               <CardTitle>Mensagens e Alertas</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              {messages.map((message, index) => (
+              {[...messages, ...dynamicAlerts].map((message, index) => (
                 <div
                   key={index}
                   className={`p-4 border-b last:border-b-0 ${
@@ -644,7 +729,7 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
                       <Button
                         onClick={handleSaveNote}
                         disabled={!currentNote.trim()}
-                        className="bg-purple-600 hover:bg-purple-700"
+                        className="vivo-btn-primary"
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Salvar Observação
@@ -652,10 +737,25 @@ Relatório gerado em: ${new Date().toLocaleString("pt-BR")}
                       <Button
                         onClick={generatePDFReport}
                         variant="outline"
-                        className="border-purple-600 text-purple-600 hover:bg-purple-50"
+                        className="vivo-btn-secondary"
                       >
                         <Download className="h-4 w-4 mr-2" />
                         Gerar Relatório
+                      </Button>
+                      <Button
+                        onClick={() => handleChatClick(
+                          'buddy_call',
+                          `Chamar Buddy - ${selectedEmployeeData.buddy}`,
+                          { 
+                            buddy: selectedEmployeeData.buddy, 
+                            collaborator: selectedEmployeeData.name 
+                          }
+                        )}
+                        variant="outline"
+                        className="border-green-600 text-green-600 hover:bg-green-50"
+                      >
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Chamar Buddy
                       </Button>
                     </div>
                   </div>

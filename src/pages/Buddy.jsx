@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { User, MessageCircle, CheckCircle, Clock, Users, Send, Plus } from 'lucide-react'
+import { Textarea } from '@/components/ui/textarea'
+import { User, MessageCircle, CheckCircle, Clock, Users, Send, Plus, Star, ThumbsUp, Share2 } from 'lucide-react'
 import CreateTaskModal from '../components/CreateTaskModal'
 import Sidebar from '../components/Sidebar'
 import ChatModal from '../components/ChatModal'
@@ -13,6 +14,49 @@ function Buddy() {
   const [newMessage, setNewMessage] = useState('')
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [activeChatModal, setActiveChatModal] = useState(null)
+  const [newPractice, setNewPractice] = useState({ title: '', description: '', category: 'onboarding' })
+  const [bestPractices, setBestPractices] = useState([
+    {
+      id: 1,
+      title: "Primeira reunião de integração",
+      description: "Sempre agendar uma reunião de 30 minutos no primeiro dia para apresentar a equipe e esclarecer dúvidas iniciais.",
+      author: "Maria Santos",
+      category: "onboarding",
+      likes: 15,
+      date: "12/08/2024",
+      tags: ["integração", "primeiro dia", "equipe"]
+    },
+    {
+      id: 2,
+      title: "Checklist de acessos",
+      description: "Criar um checklist personalizado para cada novo colaborador com todos os sistemas que ele precisará acessar.",
+      author: "Pedro Costa",
+      category: "sistemas",
+      likes: 23,
+      date: "10/08/2024",
+      tags: ["acessos", "sistemas", "checklist"]
+    },
+    {
+      id: 3,
+      title: "Acompanhamento semanal",
+      description: "Fazer reuniões semanais de 15 minutos nas primeiras 4 semanas para acompanhar o progresso e identificar dificuldades.",
+      author: "Ana Santos",
+      category: "acompanhamento",
+      likes: 18,
+      date: "08/08/2024",
+      tags: ["acompanhamento", "reuniões", "progresso"]
+    },
+    {
+      id: 4,
+      title: "Documentação de processos",
+      description: "Manter uma pasta compartilhada com documentos essenciais e tutoriais específicos da área do novo colaborador.",
+      author: "Carlos Mendes",
+      category: "documentação",
+      likes: 12,
+      date: "05/08/2024",
+      tags: ["documentação", "processos", "tutoriais"]
+    }
+  ])
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -58,6 +102,39 @@ function Buddy() {
 
   const handleCreateTask = (newTask) => {
     setTasks(prev => [...prev, newTask])
+  }
+
+  const handleAddPractice = () => {
+    if (newPractice.title.trim() && newPractice.description.trim()) {
+      const practice = {
+        id: bestPractices.length + 1,
+        ...newPractice,
+        author: "Nome do Buddy", // Em uma implementação real, viria do contexto de autenticação
+        likes: 0,
+        date: new Date().toLocaleDateString('pt-BR'),
+        tags: newPractice.description.toLowerCase().split(' ').filter(word => word.length > 3).slice(0, 3)
+      }
+      setBestPractices(prev => [practice, ...prev])
+      setNewPractice({ title: '', description: '', category: 'onboarding' })
+    }
+  }
+
+  const handleLikePractice = (practiceId) => {
+    setBestPractices(prev => prev.map(practice => 
+      practice.id === practiceId 
+        ? { ...practice, likes: practice.likes + 1 }
+        : practice
+    ))
+  }
+
+  const getCategoryColor = (category) => {
+    switch (category) {
+      case 'onboarding': return 'bg-blue-100 text-blue-800'
+      case 'sistemas': return 'bg-green-100 text-green-800'
+      case 'acompanhamento': return 'bg-purple-100 text-purple-800'
+      case 'documentação': return 'bg-orange-100 text-orange-800'
+      default: return 'bg-gray-100 text-gray-800'
+    }
   }
 
   const handleMenuClick = (menuId) => {
@@ -135,13 +212,13 @@ function Buddy() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="vivo-header border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-semibold text-gray-900">Dashboard Buddy</h1>
+            <h1 className="text-xl font-semibold text-white">Dashboard Buddy</h1>
             <div className="flex items-center space-x-2">
-              <User className="h-5 w-5 text-green-600" />
-              <span className="text-sm text-green-600 font-medium">Nome do Buddy</span>
+              <User className="h-5 w-5 text-white" />
+              <span className="text-sm text-white font-medium">Nome do Buddy</span>
             </div>
           </div>
         </div>
@@ -206,7 +283,7 @@ function Buddy() {
                     {task.status === 'pending' && (
                       <Button 
                         size="sm" 
-                        className="bg-green-600 hover:bg-green-700"
+                        className="vivo-btn-primary"
                         onClick={() => handleCompleteTask(task.id)}
                       >
                         Marcar como Concluída
@@ -231,10 +308,10 @@ function Buddy() {
                 {assignedEmployees.map((employee, index) => (
                   <div 
                     key={index} 
-                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-100 transition-colors"
+                    className="vivo-card border border-blue-200 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-100 transition-colors"
                     onClick={() => handleChatClick(employee.name)}
                   >
-                    <div className="w-12 h-12 bg-blue-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                    <div className="w-12 h-12 vivo-bg-secondary rounded-full mx-auto mb-2 flex items-center justify-center">
                       <User className="h-6 w-6 text-white" />
                     </div>
                     <h4 className="font-medium text-gray-900">{employee.name}</h4>
@@ -250,7 +327,7 @@ function Buddy() {
           </Card>
 
           {/* Mensagens com Colaboradores Designados */}
-          <Card>
+          <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <MessageCircle className="h-5 w-5 mr-2" />
@@ -293,11 +370,102 @@ function Buddy() {
                   />
                   <Button 
                     onClick={handleSendMessage}
-                    className="bg-green-600 hover:bg-green-700"
+                    className="vivo-btn-primary"
                   >
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Comunidade de Boas Práticas */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Star className="h-5 w-5 mr-2" />
+                Comunidade de Boas Práticas
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* Formulário para adicionar nova prática */}
+              <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                <h4 className="font-medium mb-3">Compartilhar uma nova boa prática</h4>
+                <div className="space-y-3">
+                  <Input
+                    placeholder="Título da prática..."
+                    value={newPractice.title}
+                    onChange={(e) => setNewPractice(prev => ({ ...prev, title: e.target.value }))}
+                  />
+                  <Textarea
+                    placeholder="Descreva a prática em detalhes..."
+                    value={newPractice.description}
+                    onChange={(e) => setNewPractice(prev => ({ ...prev, description: e.target.value }))}
+                    className="min-h-[80px]"
+                  />
+                  <div className="flex space-x-2">
+                    <select
+                      className="p-2 border border-gray-300 rounded-md"
+                      value={newPractice.category}
+                      onChange={(e) => setNewPractice(prev => ({ ...prev, category: e.target.value }))}
+                    >
+                      <option value="onboarding">Onboarding</option>
+                      <option value="sistemas">Sistemas</option>
+                      <option value="acompanhamento">Acompanhamento</option>
+                      <option value="documentação">Documentação</option>
+                    </select>
+                    <Button 
+                      onClick={handleAddPractice}
+                      disabled={!newPractice.title.trim() || !newPractice.description.trim()}
+                      className="vivo-btn-primary"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Compartilhar
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lista de boas práticas */}
+              <div className="space-y-4">
+                {bestPractices.map((practice) => (
+                  <div key={practice.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-gray-900 mb-1">{practice.title}</h4>
+                        <p className="text-sm text-gray-600 mb-3">{practice.description}</p>
+                        
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Badge className={getCategoryColor(practice.category)}>
+                            {practice.category}
+                          </Badge>
+                          {practice.tags.map((tag, index) => (
+                            <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        <div className="flex items-center justify-between text-sm text-gray-500">
+                          <span>Por {practice.author} • {practice.date}</span>
+                          <div className="flex items-center space-x-3">
+                            <button 
+                              onClick={() => handleLikePractice(practice.id)}
+                              className="flex items-center space-x-1 hover:text-purple-600 transition-colors vivo-text-primary"
+                            >
+                              <ThumbsUp className="h-4 w-4" />
+                              <span>{practice.likes}</span>
+                            </button>
+                            <button className="flex items-center space-x-1 hover:text-purple-600 transition-colors vivo-text-primary">
+                              <Share2 className="h-4 w-4" />
+                              <span>Compartilhar</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>

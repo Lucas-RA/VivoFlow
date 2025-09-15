@@ -29,48 +29,50 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="bg-purple-700 text-white px-4 py-2 rounded-md inline-block mb-4">
-            <span className="font-bold text-lg">VivoFlow</span>
-          </div>
-          <h1 className="text-2xl font-bold text-purple-700 mb-2">
-            Bem-vindo ao VivoFlow
-          </h1>
-          <p className="text-gray-600">Simulação de Acesso</p>
-        </div>
-
-        {/* Form */}
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Entrar como:
-            </label>
-            <Select value={selectedAccess} onValueChange={setSelectedAccess}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione o tipo de acesso" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="novo-colaborador">Novo Colaborador</SelectItem>
-                <SelectItem value="gestor">Gestor</SelectItem>
-                <SelectItem value="buddy">Buddy</SelectItem>
-              </SelectContent>
-            </Select>
+    <div className="min-h-screen vivo-bg-gradient vivo-flex vivo-items-center vivo-justify-center p-4">
+      <div className="vivo-container">
+        <div className="vivo-card max-w-md mx-auto vivo-fade-in">
+          {/* Header */}
+          <div className="vivo-card-header text-center">
+            <div className="mb-4">
+              <span className="font-bold text-2xl">VivoFlow</span>
+            </div>
+            <h1 className="text-xl font-bold mb-2">
+              Bem-vindo ao VivoFlow
+            </h1>
+            <p className="text-sm opacity-90">Simulação de Acesso</p>
           </div>
 
-          <Button 
-            onClick={handleLogin}
-            className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 text-lg"
-          >
-            Entrar
-          </Button>
-        </div>
+          {/* Form */}
+          <div className="p-8 space-y-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Entrar como:
+              </label>
+              <Select value={selectedAccess} onValueChange={setSelectedAccess}>
+                <SelectTrigger className="vivo-input w-full">
+                  <SelectValue placeholder="Selecione o tipo de acesso" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="novo-colaborador">Novo Colaborador</SelectItem>
+                  <SelectItem value="gestor">Gestor</SelectItem>
+                  <SelectItem value="buddy">Buddy</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* Footer */}
-        <div className="text-center mt-6 text-sm text-gray-500">
-          <p>Ajuda • Termos de Uso</p>
+            <Button 
+              onClick={handleLogin}
+              className="vivo-btn-primary w-full"
+            >
+              Entrar
+            </Button>
+
+            {/* Footer */}
+            <div className="text-center mt-6 text-sm text-gray-500">
+              <p>Desenvolvido com Mistica Design System • Telefônica</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

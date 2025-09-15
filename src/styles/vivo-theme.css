@@ -1,0 +1,523 @@
+/* Vivo Brand Colors - Baseado no Mistica Design System */
+
+:root {
+  /* Cores principais da Vivo - Mistica */
+  --vivo-purple: #660099;
+  --vivo-purple-dark: #4461E5;
+  --vivo-purple-light10: #EFE5F4;
+  --vivo-purple-light20: #E0CCEB;
+  --vivo-purple-light50: #B280CC;
+  
+  --vivo-green: #99CC33;
+  --vivo-green-dark: #225C30;
+  --vivo-green-light10: #EDF8E8;
+  --vivo-green-25: #D0EAB0;
+  
+  --vivo-blue: #008ADB;
+  
+  --vivo-orange: #FF5900;
+  --vivo-orange-25: #FFD099;
+  --vivo-orange-dark: #972A10;
+  --vivo-orange-light10: #FFFEF1;
+  
+  --vivo-pink: #E830D7;
+  
+  --vivo-pepper: #CC1F59;
+  --vivo-pepper-dark: #B71D63;
+  --vivo-pepper-light10: #FCE4EF;
+  
+  /* Cores neutras - Mistica */
+  --vivo-grey1: #F6F6F6;
+  --vivo-grey2: #EEEEEE;
+  --vivo-grey3: #DDDDDD;
+  --vivo-grey4: #999999;
+  --vivo-grey5: #666666;
+  --vivo-grey6: #000000;
+  --vivo-white: #FFFFFF;
+  
+  /* Gradientes Mistica */
+  --vivo-gradient-primary: linear-gradient(135deg, #660099 0%, #4461E5 100%);
+  --vivo-gradient-secondary: linear-gradient(135deg, #008ADB 0%, #99CC33 100%);
+  --vivo-gradient-accent: linear-gradient(135deg, #E830D7 0%, #CC1F59 100%);
+  
+  /* Sombras Mistica */
+  --vivo-shadow-sm: 0 1px 2px 0 rgba(102, 0, 153, 0.05);
+  --vivo-shadow-md: 0 4px 6px -1px rgba(102, 0, 153, 0.1);
+  --vivo-shadow-lg: 0 10px 15px -3px rgba(102, 0, 153, 0.1);
+  --vivo-shadow-xl: 0 20px 25px -5px rgba(102, 0, 153, 0.1);
+  
+  /* Bordas arredondadas Mistica */
+  --vivo-radius-sm: 4px;
+  --vivo-radius-md: 8px;
+  --vivo-radius-lg: 12px;
+  --vivo-radius-xl: 16px;
+  --vivo-radius-full: 9999px;
+  
+  /* Espaçamentos Mistica */
+  --vivo-space-xs: 4px;
+  --vivo-space-sm: 8px;
+  --vivo-space-md: 16px;
+  --vivo-space-lg: 24px;
+  --vivo-space-xl: 32px;
+  --vivo-space-2xl: 48px;
+}
+
+/* Aplicação das cores da Vivo - Mistica */
+.vivo-bg-primary {
+  background-color: var(--vivo-purple);
+}
+
+.vivo-bg-secondary {
+  background-color: var(--vivo-blue);
+}
+
+.vivo-bg-gradient {
+  background: var(--vivo-gradient-primary);
+}
+
+.vivo-text-primary {
+  color: var(--vivo-purple);
+}
+
+.vivo-text-secondary {
+  color: var(--vivo-blue);
+}
+
+.vivo-border-primary {
+  border-color: var(--vivo-purple);
+}
+
+.vivo-border-secondary {
+  border-color: var(--vivo-blue);
+}
+
+/* Botões com estilo Mistica */
+.vivo-btn-primary {
+  background: var(--vivo-gradient-primary);
+  color: var(--vivo-white);
+  border: none;
+  border-radius: var(--vivo-radius-md);
+  padding: var(--vivo-space-md) var(--vivo-space-lg);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--vivo-shadow-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vivo-space-sm);
+  min-height: 48px;
+}
+
+.vivo-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--vivo-shadow-lg);
+  background: linear-gradient(135deg, #7700BB 0%, #5577FF 100%);
+}
+
+.vivo-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--vivo-shadow-sm);
+}
+
+.vivo-btn-secondary {
+  background: transparent;
+  color: var(--vivo-purple);
+  border: 2px solid var(--vivo-purple);
+  border-radius: var(--vivo-radius-md);
+  padding: calc(var(--vivo-space-md) - 2px) calc(var(--vivo-space-lg) - 2px);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vivo-space-sm);
+  min-height: 44px;
+}
+
+.vivo-btn-secondary:hover {
+  background: var(--vivo-purple);
+  color: var(--vivo-white);
+  transform: translateY(-1px);
+  box-shadow: var(--vivo-shadow-md);
+}
+
+/* Cards com estilo Mistica */
+.vivo-card {
+  background: var(--vivo-white);
+  border-radius: var(--vivo-radius-lg);
+  box-shadow: var(--vivo-shadow-md);
+  border: 1px solid var(--vivo-grey2);
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.vivo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--vivo-shadow-lg);
+  border-color: var(--vivo-purple-light20);
+}
+
+.vivo-card-header {
+  background: var(--vivo-gradient-primary);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-md) var(--vivo-space-lg);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  border-bottom: none;
+}
+
+/* Headers com estilo Mistica */
+.vivo-header {
+  background: var(--vivo-gradient-primary);
+  color: var(--vivo-white);
+  box-shadow: var(--vivo-shadow-md);
+  border-bottom: 1px solid var(--vivo-purple-dark);
+}
+
+/* Sidebar com estilo Mistica */
+.vivo-sidebar {
+  background: linear-gradient(180deg, var(--vivo-purple) 0%, var(--vivo-purple-dark) 100%);
+  color: var(--vivo-white);
+  border-right: 1px solid var(--vivo-purple-dark);
+}
+
+.vivo-sidebar-item {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease-in-out;
+  border-radius: var(--vivo-radius-md);
+  margin: var(--vivo-space-xs) var(--vivo-space-sm);
+  padding: var(--vivo-space-md) var(--vivo-space-md);
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.vivo-sidebar-item:hover,
+.vivo-sidebar-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--vivo-white);
+  transform: translateX(2px);
+  box-shadow: var(--vivo-shadow-sm);
+}
+
+/* Progress bars com estilo Mistica */
+.vivo-progress {
+  background: var(--vivo-grey2);
+  border-radius: var(--vivo-radius-full);
+  overflow: hidden;
+  height: 8px;
+}
+
+.vivo-progress-bar {
+  background: var(--vivo-gradient-primary);
+  height: 100%;
+  border-radius: var(--vivo-radius-full);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Badges com estilo Mistica */
+.vivo-badge-primary {
+  background: var(--vivo-purple);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-xs) var(--vivo-space-md);
+  border-radius: var(--vivo-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vivo-space-xs);
+}
+
+.vivo-badge-secondary {
+  background: var(--vivo-blue);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-xs) var(--vivo-space-md);
+  border-radius: var(--vivo-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vivo-space-xs);
+}
+
+.vivo-badge-success {
+  background: var(--vivo-green);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-xs) var(--vivo-space-md);
+  border-radius: var(--vivo-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vivo-space-xs);
+}
+
+.vivo-badge-warning {
+  background: var(--vivo-orange);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-xs) var(--vivo-space-md);
+  border-radius: var(--vivo-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vivo-space-xs);
+}
+
+.vivo-badge-danger {
+  background: var(--vivo-pepper);
+  color: var(--vivo-white);
+  padding: var(--vivo-space-xs) var(--vivo-space-md);
+  border-radius: var(--vivo-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vivo-space-xs);
+}
+
+/* Inputs com estilo Mistica */
+.vivo-input {
+  border: 2px solid var(--vivo-grey3);
+  border-radius: var(--vivo-radius-md);
+  padding: var(--vivo-space-md) var(--vivo-space-md);
+  transition: all 0.2s ease-in-out;
+  background: var(--vivo-white);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 48px;
+}
+
+.vivo-input:focus {
+  border-color: var(--vivo-purple);
+  box-shadow: 0 0 0 3px var(--vivo-purple-light10);
+  outline: none;
+}
+
+.vivo-input::placeholder {
+  color: var(--vivo-grey4);
+}
+
+/* Tabelas com estilo Mistica */
+.vivo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--vivo-white);
+  border-radius: var(--vivo-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--vivo-shadow-sm);
+}
+
+.vivo-table th {
+  background: var(--vivo-grey1);
+  color: var(--vivo-grey6);
+  padding: var(--vivo-space-md) var(--vivo-space-md);
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--vivo-grey3);
+}
+
+.vivo-table td {
+  padding: var(--vivo-space-md) var(--vivo-space-md);
+  border-bottom: 1px solid var(--vivo-grey2);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--vivo-grey6);
+}
+
+.vivo-table tr:hover {
+  background: var(--vivo-purple-light10);
+}
+
+/* Alertas com estilo Mistica */
+.vivo-alert {
+  padding: var(--vivo-space-md) var(--vivo-space-lg);
+  border-radius: var(--vivo-radius-md);
+  border-left: 4px solid;
+  margin: var(--vivo-space-md) 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.vivo-alert-info {
+  background: var(--vivo-purple-light10);
+  border-color: var(--vivo-purple);
+  color: var(--vivo-purple-dark);
+}
+
+.vivo-alert-success {
+  background: var(--vivo-green-light10);
+  border-color: var(--vivo-green);
+  color: var(--vivo-green-dark);
+}
+
+.vivo-alert-warning {
+  background: var(--vivo-orange-light10);
+  border-color: var(--vivo-orange);
+  color: var(--vivo-orange-dark);
+}
+
+.vivo-alert-danger {
+  background: var(--vivo-pepper-light10);
+  border-color: var(--vivo-pepper);
+  color: var(--vivo-pepper-dark);
+}
+
+/* Layout responsivo Mistica */
+.vivo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--vivo-space-md);
+}
+
+.vivo-grid {
+  display: grid;
+  gap: var(--vivo-space-lg);
+}
+
+.vivo-grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.vivo-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.vivo-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.vivo-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.vivo-flex {
+  display: flex;
+  gap: var(--vivo-space-md);
+}
+
+.vivo-flex-col {
+  flex-direction: column;
+}
+
+.vivo-items-center {
+  align-items: center;
+}
+
+.vivo-justify-center {
+  justify-content: center;
+}
+
+.vivo-justify-between {
+  justify-content: space-between;
+}
+
+/* Animações Mistica */
+@keyframes vivo-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.vivo-pulse {
+  animation: vivo-pulse 2s infinite;
+}
+
+@keyframes vivo-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+.vivo-bounce {
+  animation: vivo-bounce 1s infinite;
+}
+
+@keyframes vivo-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vivo-fade-in {
+  animation: vivo-fade-in 0.3s ease-out;
+}
+
+/* Responsividade Mistica */
+@media (max-width: 768px) {
+  .vivo-btn-primary,
+  .vivo-btn-secondary {
+    padding: var(--vivo-space-sm) var(--vivo-space-md);
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .vivo-card {
+    margin: var(--vivo-space-sm);
+    border-radius: var(--vivo-radius-md);
+  }
+  
+  .vivo-card-header {
+    padding: var(--vivo-space-sm) var(--vivo-space-md);
+    font-size: 14px;
+  }
+  
+  .vivo-container {
+    padding: 0 var(--vivo-space-sm);
+  }
+  
+  .vivo-grid {
+    gap: var(--vivo-space-md);
+  }
+  
+  .vivo-grid-cols-2,
+  .vivo-grid-cols-3,
+  .vivo-grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .vivo-table th,
+  .vivo-table td {
+    padding: var(--vivo-space-sm);
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vivo-sidebar-item {
+    padding: var(--vivo-space-sm);
+    font-size: 12px;
+  }
+  
+  .vivo-input {
+    padding: var(--vivo-space-sm);
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .vivo-alert {
+    padding: var(--vivo-space-sm) var(--vivo-space-md);
+    font-size: 12px;
+  }
+}
+
